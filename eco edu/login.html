@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EcoEdu</title>
+
+    <!-- MDBootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body data-theme="light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-success">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="index.html">
+                <i class="fas fa-leaf me-2"></i>EcoEdu
+            </a>
+            <div class="ms-auto">
+                <button class="btn btn-sm btn-outline-light" onclick="toggleTheme()">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="min-vh-100 d-flex align-items-center" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="card shadow-lg border-0" style="border-radius: 20px;">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="fas fa-leaf text-success fa-3x mb-3"></i>
+                                <h2 class="fw-bold text-success">Welcome Back!</h2>
+                                <p class="text-muted">Sign in to continue your eco-journey</p>
+                            </div>
+
+                            <!-- Demo success message for static version -->
+                            <div class="alert alert-info" role="alert">
+                                <i class="fas fa-info-circle me-2"></i>This is a demo login page. In the full application, this would connect to a database.
+                            </div>
+
+                            <form action="#" method="POST" class="needs-validation" novalidate>
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="username_email" name="username_email" class="form-control form-control-lg" required>
+                                    <label class="form-label" for="username_email">Username or Email</label>
+                                    <div class="invalid-feedback">
+                                        Please enter your username or email.
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="password" id="password" name="password" class="form-control form-control-lg" required>
+                                    <label class="form-label" for="password">Password</label>
+                                    <div class="invalid-feedback">
+                                        Please enter your password.
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="remember_me">
+                                        <label class="form-check-label" for="remember_me">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    <a href="#" class="text-success">Forgot password?</a>
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-lg w-100 mb-3">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                                </button>
+
+                                <div class="text-center">
+                                    <p class="mb-0">Don't have an account?
+                                        <a href="register.html" class="text-success fw-bold">Sign up here</a>
+                                    </p>
+                                </div>
+                            </form>
+
+                            <!-- Demo Accounts -->
+                            <div class="mt-4 pt-4 border-top">
+                                <h6 class="text-center text-muted mb-3">Demo Accounts</h6>
+                                <div class="row text-center">
+                                    <div class="col-6">
+                                        <small class="text-muted d-block">Student</small>
+                                        <code>student@demo.com</code><br>
+                                        <code>demo123</code>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted d-block">Teacher</small>
+                                        <code>teacher@demo.com</code><br>
+                                        <code>demo123</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MDBootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Simple validation
+            const username = document.getElementById('username_email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            if (username && password) {
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Please enter both username/email and password');
+            }
+        });
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+
+            const icon = document.getElementById('theme-icon');
+            icon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+        const themeIcon = document.getElementById('theme-icon');
+        if (themeIcon) {
+            themeIcon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+    </script>
+</body>
+</html>

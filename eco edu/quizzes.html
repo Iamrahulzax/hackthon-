@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes - EcoEdu</title>
+
+    <!-- MDBootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <style>
+        .quiz-card {
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+        .quiz-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .quiz-card.completed {
+            border-left-color: #28a745;
+            background: linear-gradient(135deg, #f8fff9 0%, #ffffff 100%);
+        }
+        .difficulty-easy { background-color: #d4edda; color: #155724; }
+        .difficulty-medium { background-color: #fff3cd; color: #856404; }
+        .difficulty-hard { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="index.html">
+                <i class="fas fa-leaf me-2"></i>EcoEdu
+            </a>
+
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="learn.html">
+                            <i class="fas fa-book me-1"></i>Learn
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white active" href="quizzes.html">
+                            <i class="fas fa-question-circle me-1"></i>Quizzes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="challenges.html">
+                            <i class="fas fa-trophy me-1"></i>Challenges
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="leaderboard.html">
+                            <i class="fas fa-medal me-1"></i>Leaderboard
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown">
+                            <i class="fas fa-user me-1"></i>John
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="logout.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-sm btn-outline-light ms-2" onclick="toggleTheme()">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-5 mt-4">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1 class="text-gradient"><i class="fas fa-question-circle me-2"></i>Test Your Knowledge</h1>
+                            <p class="text-muted">Challenge yourself with environmental quizzes and earn eco-points!</p>
+                        </div>
+                        <div class="text-end">
+                            <div class="eco-points">
+                                <i class="fas fa-coins me-1"></i>
+                                2,450 Points
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="GET" class="row g-3 align-items-end">
+                                <div class="col-md-4">
+                                    <label for="search" class="form-label">Search</label>
+                                    <input type="text" class="form-control" id="search" name="search"
+                                           placeholder="Search quizzes...">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="category" class="form-label">Category</label>
+                                    <select class="form-select" id="category" name="category">
+                                        <option value="">All Categories</option>
+                                        <option value="1">Climate & Weather</option>
+                                        <option value="2">Ecosystems</option>
+                                        <option value="3">Conservation</option>
+                                        <option value="4">Sustainable Living</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="difficulty" class="form-label">Difficulty</label>
+                                    <select class="form-select" id="difficulty" name="difficulty">
+                                        <option value="">All Levels</option>
+                                        <option value="easy">Easy</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="hard">Hard</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-search me-1"></i>Filter
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Grid -->
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card quiz-card h-100 completed">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title">Climate Change Basics</h5>
+                                <i class="fas fa-check-circle text-success fa-lg"></i>
+                            </div>
+
+                            <div class="mb-3">
+                                <span class="badge bg-secondary me-2">Climate & Weather</span>
+                                <span class="badge difficulty-easy">
+                                    Easy
+                                </span>
+                            </div>
+
+                            <p class="card-text text-muted">
+                                Test your knowledge about climate change fundamentals, greenhouse gases, and global warming.
+                            </p>
+
+                            <div class="row text-center mb-3">
+                                <div class="col-4">
+                                    <i class="fas fa-clock text-warning"></i>
+                                    <small class="d-block text-muted">10 min</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-question text-info"></i>
+                                    <small class="d-block text-muted">15 Qs</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-coins text-success"></i>
+                                    <small class="d-block text-muted">50 pts</small>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="text-success">
+                                    <small><i class="fas fa-trophy me-1"></i>Best Score: 90%</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="quiz.html?id=1" class="btn btn-success w-100">
+                                <i class="fas fa-redo me-2"></i>Retake Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card quiz-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title">Renewable Energy</h5>
+                            </div>
+
+                            <div class="mb-3">
+                                <span class="badge bg-secondary me-2">Sustainable Living</span>
+                                <span class="badge difficulty-medium">
+                                    Medium
+                                </span>
+                            </div>
+
+                            <p class="card-text text-muted">
+                                Challenge yourself with questions about solar, wind, hydro, and other renewable energy sources.
+                            </p>
+
+                            <div class="row text-center mb-3">
+                                <div class="col-4">
+                                    <i class="fas fa-clock text-warning"></i>
+                                    <small class="d-block text-muted">15 min</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-question text-info"></i>
+                                    <small class="d-block text-muted">20 Qs</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-coins text-success"></i>
+                                    <small class="d-block text-muted">75 pts</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="quiz.html?id=2" class="btn btn-primary w-100">
+                                <i class="fas fa-play me-2"></i>Start Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card quiz-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title">Ocean Conservation</h5>
+                            </div>
+
+                            <div class="mb-3">
+                                <span class="badge bg-secondary me-2">Conservation</span>
+                                <span class="badge difficulty-medium">
+                                    Medium
+                                </span>
+                            </div>
+
+                            <p class="card-text text-muted">
+                                Learn about marine ecosystems, ocean pollution, and conservation efforts.
+                            </p>
+
+                            <div class="row text-center mb-3">
+                                <div class="col-4">
+                                    <i class="fas fa-clock text-warning"></i>
+                                    <small class="d-block text-muted">12 min</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-question text-info"></i>
+                                    <small class="d-block text-muted">18 Qs</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-coins text-success"></i>
+                                    <small class="d-block text-muted">65 pts</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="quiz.html?id=3" class="btn btn-primary w-100">
+                                <i class="fas fa-play me-2"></i>Start Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card quiz-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title">Biodiversity Quiz</h5>
+                            </div>
+
+                            <div class="mb-3">
+                                <span class="badge bg-secondary me-2">Ecosystems</span>
+                                <span class="badge difficulty-hard">
+                                    Hard
+                                </span>
+                            </div>
+
+                            <p class="card-text text-muted">
+                                Advanced questions about biodiversity, species interactions, and ecosystem dynamics.
+                            </p>
+
+                            <div class="row text-center mb-3">
+                                <div class="col-4">
+                                    <i class="fas fa-clock text-warning"></i>
+                                    <small class="d-block text-muted">20 min</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-question text-info"></i>
+                                    <small class="d-block text-muted">25 Qs</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-coins text-success"></i>
+                                    <small class="d-block text-muted">100 pts</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="quiz.html?id=4" class="btn btn-primary w-100">
+                                <i class="fas fa-play me-2"></i>Start Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card quiz-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title">Sustainable Living</h5>
+                            </div>
+
+                            <div class="mb-3">
+                                <span class="badge bg-secondary me-2">Sustainable Living</span>
+                                <span class="badge difficulty-easy">
+                                    Easy
+                                </span>
+                            </div>
+
+                            <p class="card-text text-muted">
+                                Questions about eco-friendly daily habits and sustainable lifestyle choices.
+                            </p>
+
+                            <div class="row text-center mb-3">
+                                <div class="col-4">
+                                    <i class="fas fa-clock text-warning"></i>
+                                    <small class="d-block text-muted">8 min</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-question text-info"></i>
+                                    <small class="d-block text-muted">12 Qs</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-coins text-success"></i>
+                                    <small class="d-block text-muted">40 pts</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="quiz.html?id=5" class="btn btn-primary w-100">
+                                <i class="fas fa-play me-2"></i>Start Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card quiz-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title">Environmental Policy</h5>
+                            </div>
+
+                            <div class="mb-3">
+                                <span class="badge bg-secondary me-2">Conservation</span>
+                                <span class="badge difficulty-hard">
+                                    Hard
+                                </span>
+                            </div>
+
+                            <p class="card-text text-muted">
+                                Test your knowledge of environmental laws, international agreements, and policy initiatives.
+                            </p>
+
+                            <div class="row text-center mb-3">
+                                <div class="col-4">
+                                    <i class="fas fa-clock text-warning"></i>
+                                    <small class="d-block text-muted">18 min</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-question text-info"></i>
+                                    <small class="d-block text-muted">22 Qs</small>
+                                </div>
+                                <div class="col-4">
+                                    <i class="fas fa-coins text-success"></i>
+                                    <small class="d-block text-muted">90 pts</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="quiz.html?id=6" class="btn btn-primary w-100">
+                                <i class="fas fa-play me-2"></i>Start Quiz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MDBootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+
+            const icon = document.getElementById('theme-icon');
+            icon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+        const themeIcon = document.getElementById('theme-icon');
+        if (themeIcon) {
+            themeIcon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+    </script>
+</body>
+</html>

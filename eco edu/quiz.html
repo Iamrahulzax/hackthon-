@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - EcoEdu</title>
+
+    <!-- MDBootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body data-theme="light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="index.html">
+                <i class="fas fa-leaf me-2"></i>EcoEdu
+            </a>
+
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="learn.html">
+                            <i class="fas fa-book me-1"></i>Learn
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white active" href="quizzes.html">
+                            <i class="fas fa-question-circle me-1"></i>Quizzes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="challenges.html">
+                            <i class="fas fa-trophy me-1"></i>Challenges
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="leaderboard.html">
+                            <i class="fas fa-medal me-1"></i>Leaderboard
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown">
+                            <i class="fas fa-user me-1"></i>John
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="logout.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-sm btn-outline-light ms-2" onclick="toggleTheme()">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-5 mt-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-lg">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h3 class="mb-0">
+                                <i class="fas fa-brain me-2"></i>
+                                <span id="quizTitle">Climate Change Basics Quiz</span>
+                            </h3>
+                            <p class="mb-0 mt-2">
+                                <i class="fas fa-clock me-1"></i>
+                                <span id="quizTime">10 minutes</span> •
+                                <i class="fas fa-coins me-1 ms-2"></i>
+                                <span id="quizPoints">50 points</span>
+                            </p>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                This is a demo quiz page. In the full application, you would be able to take interactive quizzes.
+                            </div>
+
+                            <!-- Quiz Progress -->
+                            <div class="quiz-progress mb-4">
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-success" style="width: 0%" id="quizProgress"></div>
+                                </div>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <small class="text-muted">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></small>
+                                    <small class="text-muted">Score: <span id="currentScore">0</span></small>
+                                </div>
+                            </div>
+
+                            <!-- Quiz Question -->
+                            <div class="quiz-question mb-4">
+                                <h4 id="questionText">What is the primary greenhouse gas contributing to climate change?</h4>
+
+                                <div class="quiz-options mt-4" id="quizOptions">
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="radio" name="quizAnswer" id="option1" value="1">
+                                        <label class="form-check-label" for="option1">
+                                            Carbon Dioxide (CO₂)
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="radio" name="quizAnswer" id="option2" value="2">
+                                        <label class="form-check-label" for="option2">
+                                            Oxygen (O₂)
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="radio" name="quizAnswer" id="option3" value="3">
+                                        <label class="form-check-label" for="option3">
+                                            Nitrogen (N₂)
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="radio" name="quizAnswer" id="option4" value="4">
+                                        <label class="form-check-label" for="option4">
+                                            Hydrogen (H₂)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quiz Controls -->
+                            <div class="quiz-controls d-flex justify-content-between">
+                                <button class="btn btn-outline-secondary" id="prevBtn" disabled>
+                                    <i class="fas fa-arrow-left me-1"></i>Previous
+                                </button>
+
+                                <div class="quiz-info">
+                                    <small class="text-muted">Demo: This quiz is for display purposes only</small>
+                                </div>
+
+                                <button class="btn btn-success" id="nextBtn">
+                                    Next<i class="fas fa-arrow-right ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="quizzes.html" class="btn btn-outline-primary">
+                                <i class="fas fa-arrow-left me-1"></i>Back to Quizzes
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MDBootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+
+            const icon = document.getElementById('theme-icon');
+            icon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+        const themeIcon = document.getElementById('theme-icon');
+        if (themeIcon) {
+            themeIcon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Demo quiz interaction
+        let currentQuestionIndex = 0;
+        const totalQuestions = 10;
+        const quizData = [
+            {
+                question: "What is the primary greenhouse gas contributing to climate change?",
+                options: ["Carbon Dioxide (CO₂)", "Oxygen (O₂)", "Nitrogen (N₂)", "Hydrogen (H₂)"],
+                correct: 0
+            },
+            {
+                question: "Which of these is NOT a renewable energy source?",
+                options: ["Solar Power", "Wind Power", "Coal", "Hydroelectric Power"],
+                correct: 2
+            },
+            {
+                question: "What percentage of Earth's water is freshwater?",
+                options: ["3%", "25%", "50%", "97%"],
+                correct: 0
+            }
+        ];
+
+        function updateQuizDisplay() {
+            const question = quizData[currentQuestionIndex];
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('quizProgress').style.width = ((currentQuestionIndex + 1) / totalQuestions * 100) + '%';
+
+            // Update options
+            const options = document.querySelectorAll('.form-check-label');
+            options.forEach((option, index) => {
+                option.textContent = question.options[index];
+            });
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').innerHTML = currentQuestionIndex === totalQuestions - 1 ? 'Finish Quiz<i class="fas fa-check ms-1"></i>' : 'Next<i class="fas fa-arrow-right ms-1"></i>';
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                updateQuizDisplay();
+            } else {
+                alert('Demo: Quiz completed! In the full application, you would see your results.');
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                updateQuizDisplay();
+            }
+        });
+
+        // Initialize quiz
+        updateQuizDisplay();
+    </script>
+</body>
+</html>
